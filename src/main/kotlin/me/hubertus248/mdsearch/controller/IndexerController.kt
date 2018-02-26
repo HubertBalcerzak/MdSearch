@@ -1,6 +1,8 @@
 package me.hubertus248.mdsearch.controller
 
-import org.springframework.web.bind.annotation.GetMapping
+import me.hubertus248.mdsearch.service.indexer.DocumentParser
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -10,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class IndexerController {
 
-    @GetMapping("/")
-    fun index(): String {
-        return "kappa"
+    @PostMapping("/index")
+    fun index(
+            @RequestParam(name = "document") document: String) {
+        DocumentParser().run { parseDocument(document) }
     }
 }
