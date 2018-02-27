@@ -8,7 +8,11 @@ val WEIGHT_TITLE = 3f
 val WEIGHT_PARAGRAPH = 1f
 val WEIGHT_HEADING = 1.5f
 
-data class Paragraph(
-        val content: String,
+class Paragraph(
+        var content: String,
         val importance: Float
-)
+) {
+    fun merge(nextLine: String) {
+        content += " " + nextLine
+    }
+}
