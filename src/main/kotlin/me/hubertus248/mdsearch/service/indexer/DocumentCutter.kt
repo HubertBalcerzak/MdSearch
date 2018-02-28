@@ -13,21 +13,17 @@ class DocumentCutter {
     private val paragraphs = ArrayList<Paragraph>()
     fun cut(title: String, content: String) {
         addParagraph(title, WEIGHT_TITLE)
-        content.apply {
-            processUnderscoredHeadings(this)
-            processParagraphs(this)
-        }
-        processUnderscoredHeadings(content)
+        val halfProcessedContent = processUnderscoredHeadings(content)
+        processParagraphs(halfProcessedContent)
         print("kappa")
     }
 
     private fun processUnderscoredHeadings(document: String): String {
         val results = UNDERSCORED_HEADING_REGEX.findAll(document)
-        results.iterator().forEach {
-            addParagraph(it.groupValues[1], WEIGHT_HEADING)
-            document.replaceRange(it.range, "#")
-        }
-        return document
+        return results.toList().foldRight(document, { result, acc ->
+            addParagraph(result.groupValues[1], WEIGHT_HEADING)
+            acc.replaceRange(result.range, "#")
+        })
     }
 
     private fun processParagraphs(document: String) {
@@ -39,11 +35,11 @@ class DocumentCutter {
     }
 
     private fun addParagraph(text: String, weight: Float) {
-        paragraphs.add(Paragraph(
-                text
-                        .replace(ALPHANUMERIC_REGEX, "")
-                        .replace(MULTIPLE_SPACE_REGEX, " ")
-                        .toLowerCase(),
-                weight))
+        val escapedText = text
+                .replace(ALPHANUMERIC_REGEX, "")
+                .replace(MULTIPLE_SPACE_REGEX, " ")
+                .toLowerCase()
+        if (escapedText.isNotBlank())
+            paragraphs.add(Paragraph(escapedText, weight))
     }
 }

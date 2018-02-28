@@ -39,12 +39,12 @@ class ParagraphMerger {
     }
 
     private fun processAsParagraphLine(line: String) {
-        state = IN_PARAGRAPH
         when (state) {
             BEGINNING -> paragraphs.add(UnprocessedParagraph(line, WEIGHT_PARAGRAPH))
             SEEN_PARAGRAPH_END -> paragraphs.add(UnprocessedParagraph(line, WEIGHT_PARAGRAPH))
             IN_PARAGRAPH -> paragraphs.last().addLine(line)
         }
+        state = IN_PARAGRAPH
     }
 }
 
