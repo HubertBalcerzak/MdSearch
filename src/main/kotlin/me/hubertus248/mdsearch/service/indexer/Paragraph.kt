@@ -11,8 +11,4 @@ val WEIGHT_HEADING = 1.5f
 class Paragraph(
         var content: String,
         val importance: Float
-) {
-    fun merge(nextLine: String) {
-        content += " " + nextLine
-    }
-}
+)

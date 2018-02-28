@@ -1,6 +1,6 @@
 package me.hubertus248.mdsearch.controller
 
-import me.hubertus248.mdsearch.service.indexer.DocumentParser
+import me.hubertus248.mdsearch.service.indexer.DocumentIndexer
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -15,6 +15,6 @@ class IndexerController {
     @PostMapping("/index")
     fun index(
             @RequestParam(name = "document") document: String) {
-        DocumentParser().run { parseDocument(document) }
+        DocumentIndexer().run { parseDocument(document) }
     }
 }

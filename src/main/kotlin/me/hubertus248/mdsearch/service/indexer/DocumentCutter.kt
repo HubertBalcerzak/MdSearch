@@ -6,14 +6,11 @@ package me.hubertus248.mdsearch.service.indexer
  */
 private val UNDERSCORED_HEADING_REGEX = "(.+)\\n[-=]+\\n".toRegex()
 private val ALPHANUMERIC_REGEX = "[^A-Za-z0-9 ]".toRegex()
-private val HEADING_REGEX = "[#]+\\s.+"
-
-private val TABLE_PREFIX = "|"
-private val HEADING_PREFIX = "#"
+private val MULTIPLE_SPACE_REGEX = "[ ][ ]+".toRegex()
 
 class DocumentCutter {
 
-    val paragraphs = ArrayList<Paragraph>()
+    private val paragraphs = ArrayList<Paragraph>()
     fun cut(title: String, content: String) {
         addParagraph(title, WEIGHT_TITLE)
         content.apply {
@@ -21,6 +18,7 @@ class DocumentCutter {
             processParagraphs(this)
         }
         processUnderscoredHeadings(content)
+        print("kappa")
     }
 
     private fun processUnderscoredHeadings(document: String): String {
@@ -33,23 +31,19 @@ class DocumentCutter {
     }
 
     private fun processParagraphs(document: String) {
-        val l = document.split("\n").map {
-            val isHeading = it.startsWith(HEADING_PREFIX)
-            val paragraphImportance = if (isHeading) WEIGHT_HEADING else WEIGHT_PARAGRAPH
-
-            UnprocessedParagraph(it, paragraphImportance, isHeading, isHeading || it.startsWith(TABLE_PREFIX))
-        }
-//                .fold(ArrayList<Paragraph>(), { acc, paragraphLine -> if (paragraphLine.isNewParagraph || acc.size == 0||acc.last().) })
+        document
+                .split("\n")
+                .fold(ParagraphMerger(), { acc, line -> acc.addLine(line) })
+                .paragraphs
+                .forEach { addParagraph(it.content, it.weight) }
     }
 
     private fun addParagraph(text: String, weight: Float) {
-        paragraphs.add(Paragraph(text.replace(ALPHANUMERIC_REGEX, "").toLowerCase(), weight))
+        paragraphs.add(Paragraph(
+                text
+                        .replace(ALPHANUMERIC_REGEX, "")
+                        .replace(MULTIPLE_SPACE_REGEX, " ")
+                        .toLowerCase(),
+                weight))
     }
 }
-
-private class UnprocessedParagraph(
-        var line: String,
-        val importance: Float,
-        val isHeading: Boolean = false,
-        var isNewParagraph: Boolean = false
-)
