@@ -16,6 +16,6 @@ class IndexerController(val indexerService: IndexerService) {
     fun index(
             @RequestParam(name = "document") document: String,
             @RequestParam(name = "documentTitle") title: String) {
-        indexerService.parseDocument(document)
+        indexerService.parseDocument(title, document)
     }
 }
