@@ -11,11 +11,11 @@ private val MULTIPLE_SPACE_REGEX = "[ ][ ]+".toRegex()
 class DocumentCutter {
 
     private val paragraphs = ArrayList<Paragraph>()
-    fun cut(title: String, content: String) {
+    fun cut(title: String, content: String): ArrayList<Paragraph> {
         addParagraph(title, WEIGHT_TITLE)
         val halfProcessedContent = processUnderscoredHeadings(content)
         processParagraphs(halfProcessedContent)
-        print("kappa")
+        return paragraphs
     }
 
     private fun processUnderscoredHeadings(document: String): String {
