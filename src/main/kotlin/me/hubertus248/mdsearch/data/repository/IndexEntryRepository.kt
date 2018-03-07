@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository
  *         Created 21.02.2018
  */
 interface IndexEntryRepository : JpaRepository<IndexEntryModel, Long> {
-
+    fun findOneByTerm(term: String): IndexEntryModel?
 }

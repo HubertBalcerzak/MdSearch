@@ -7,7 +7,7 @@ package me.hubertus248.mdsearch.data.domain
 class Term(
         val text: String,
         val id: Long,
-        val documentEntries: ArrayList<DocumentEntry>
+        val documentEntries: List<DocumentEntry> = ArrayList()
 ) : Comparable<Term> {
     var lastAccess = System.currentTimeMillis()
 
