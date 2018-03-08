@@ -7,11 +7,16 @@ package me.hubertus248.mdsearch.data.domain
 class Term(
         val text: String,
         val id: Long,
-        val documentEntries: List<DocumentEntry> = ArrayList()
+        val documentEntries: List<DocumentEntry> = ArrayList(),
+        var lastAccess: Long = System.currentTimeMillis()
 ) : Comparable<Term> {
-    var lastAccess = System.currentTimeMillis()
-
     override fun compareTo(other: Term): Int {
         return (other.lastAccess - lastAccess).toInt()
+    }
+
+    fun serialize(): ByteArray {
+        val array = ByteArray(documentEntries.size * 16)
+        documentEntries.forEachIndexed { i, documentEntry -> documentEntry.writeSerialized(array, i * 2) }
+        return array
     }
 }

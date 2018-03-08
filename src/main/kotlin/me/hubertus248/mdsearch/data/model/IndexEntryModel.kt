@@ -12,11 +12,11 @@ import javax.persistence.*
 class IndexEntryModel(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+        var id: Long? = null,
 
         @NotNull
         @Column(nullable = false, length = 128)
-        val term: String,
+        var term: String? = null,
 
-        val indexerData: ByteArray
+        var indexerData: ByteArray? = null
 )
