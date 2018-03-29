@@ -8,11 +8,23 @@ import org.springframework.stereotype.Service
  */
 @Service
 class IndexerService {
-    fun parseDocument(title: String, document: String) {
-        DocumentCutter()
-                .cut(title, document)
-                .forEach {
 
-                }
+    @Synchronized
+    fun indexDocument(title: String, document: String) {
+
     }
+
+    private fun clearPrevious(){
+
+    }
+
+//    private fun parseTerms(){
+//        DocumentCutter()
+//                .cut(title, document)
+//                .forEach {
+//                    it.content.split(" ").forEach{
+//
+//                    }
+//                }
+//    }
 }

@@ -2,8 +2,7 @@ package me.hubertus248.mdsearch.service
 
 import me.hubertus248.mdsearch.IndexEntryParser
 import me.hubertus248.mdsearch.data.domain.Term
-import me.hubertus248.mdsearch.data.model.IndexEntryModel
-import me.hubertus248.mdsearch.data.repository.IndexEntryRepository
+import me.hubertus248.mdsearch.data.repository.IndexRepository
 import org.springframework.stereotype.Service
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.PriorityBlockingQueue
@@ -12,11 +11,12 @@ import java.util.concurrent.PriorityBlockingQueue
  * @author Hubertus
  *         Created 02.03.2018
  */
-@Service
-class TermBank(val indexEntryRepository: IndexEntryRepository) {
 
-    private val INVALIDATION_CHECK_INTERVAL = 100
-    private val MAX_CACHED_ENTRIES = 1000
+private const val INVALIDATION_CHECK_INTERVAL = 100
+private const val MAX_CACHED_ENTRIES = 1000
+
+@Service
+class TermBank(val indexEntryRepository: IndexRepository) {
 
     private val entryParser = IndexEntryParser()
 
@@ -25,7 +25,7 @@ class TermBank(val indexEntryRepository: IndexEntryRepository) {
     operator fun get(termKey: String): Term? {
         val cachedValue = terms[termKey]
         return if (cachedValue == null) {
-            val entryModel = indexEntryRepository.findOneByTerm(termKey)
+            val entryModel = indexEntryRepository.getIndexByTerm(termKey)
             if (entryModel == null) {
                 null
             } else {
@@ -42,10 +42,7 @@ class TermBank(val indexEntryRepository: IndexEntryRepository) {
     }
 
     operator fun set(termKey: String, value: Term) {
-        val model = IndexEntryModel()
-        model.term = termKey
-        model.indexerData = value.serialize()
-        indexEntryRepository.save(model)
+        indexEntryRepository.storeTerm(termKey, value.serialize())
         if (terms.containsKey(termKey)) {
             terms[termKey]?.lastAccess = Long.MIN_VALUE
             terms.remove(termKey)

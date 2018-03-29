@@ -2,15 +2,15 @@ package me.hubertus248.mdsearch
 
 import me.hubertus248.mdsearch.data.domain.DocumentEntry
 import me.hubertus248.mdsearch.data.domain.Term
-import me.hubertus248.mdsearch.data.model.IndexEntryModel
+import me.hubertus248.mdsearch.data.model.IndexModel
 
 /**
  * @author Hubertus
  *         Created 07.03.2018
  */
 class IndexEntryParser {
-    fun parse(indexEntry: IndexEntryModel): Term = Term(indexEntry.term, indexEntry.id,
-            indexEntry.indexerData.asIterable().chunked(8).map {
+    fun parse(indexEntry: IndexModel): Term = Term(indexEntry.term, indexEntry.id,
+            indexEntry.data.asIterable().chunked(8).map {
                 DocumentEntry(
                         toInt(it.subList(0, 3)),
                         Float.fromBits(toInt(it.subList(4, 7)))
