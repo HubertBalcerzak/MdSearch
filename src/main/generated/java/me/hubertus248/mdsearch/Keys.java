@@ -18,11 +18,14 @@ public class Keys {
 	// IDENTITY definitions
 	// -------------------------------------------------------------------------
 
+	public static final org.jooq.Identity<me.hubertus248.mdsearch.tables.records.DocumentsRecord, java.lang.Integer> IDENTITY_DOCUMENTS = Identities0.IDENTITY_DOCUMENTS;
 
 	// -------------------------------------------------------------------------
 	// UNIQUE and PRIMARY KEY definitions
 	// -------------------------------------------------------------------------
 
+	public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.DocumentsRecord> KEY_DOCUMENTS_PRIMARY = UniqueKeys0.KEY_DOCUMENTS_PRIMARY;
+	public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.DocumentsRecord> KEY_DOCUMENTS_DOCUMENTS_ID_UINDEX = UniqueKeys0.KEY_DOCUMENTS_DOCUMENTS_ID_UINDEX;
 	public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.IndexesRecord> KEY_INDEXES_PRIMARY = UniqueKeys0.KEY_INDEXES_PRIMARY;
 	public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.IndexesRecord> KEY_INDEXES_INDEXES_TERM_UINDEX = UniqueKeys0.KEY_INDEXES_INDEXES_TERM_UINDEX;
 
@@ -35,7 +38,13 @@ public class Keys {
 	// [#1459] distribute members to avoid static initialisers > 64kb
 	// -------------------------------------------------------------------------
 
+	private static class Identities0 extends org.jooq.impl.AbstractKeys {
+		public static org.jooq.Identity<me.hubertus248.mdsearch.tables.records.DocumentsRecord, java.lang.Integer> IDENTITY_DOCUMENTS = createIdentity(me.hubertus248.mdsearch.tables.Documents.DOCUMENTS, me.hubertus248.mdsearch.tables.Documents.DOCUMENTS.ID);
+	}
+
 	private static class UniqueKeys0 extends org.jooq.impl.AbstractKeys {
+		public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.DocumentsRecord> KEY_DOCUMENTS_PRIMARY = createUniqueKey(me.hubertus248.mdsearch.tables.Documents.DOCUMENTS, me.hubertus248.mdsearch.tables.Documents.DOCUMENTS.ID);
+		public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.DocumentsRecord> KEY_DOCUMENTS_DOCUMENTS_ID_UINDEX = createUniqueKey(me.hubertus248.mdsearch.tables.Documents.DOCUMENTS, me.hubertus248.mdsearch.tables.Documents.DOCUMENTS.ID);
 		public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.IndexesRecord> KEY_INDEXES_PRIMARY = createUniqueKey(me.hubertus248.mdsearch.tables.Indexes.INDEXES, me.hubertus248.mdsearch.tables.Indexes.INDEXES.TERM);
 		public static final org.jooq.UniqueKey<me.hubertus248.mdsearch.tables.records.IndexesRecord> KEY_INDEXES_INDEXES_TERM_UINDEX = createUniqueKey(me.hubertus248.mdsearch.tables.Indexes.INDEXES, me.hubertus248.mdsearch.tables.Indexes.INDEXES.TERM);
 	}

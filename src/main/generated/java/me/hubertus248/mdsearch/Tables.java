@@ -14,6 +14,11 @@ package me.hubertus248.mdsearch;
 public class Tables {
 
 	/**
+	 * The table mdsearch.documents
+	 */
+	public static final me.hubertus248.mdsearch.tables.Documents DOCUMENTS = me.hubertus248.mdsearch.tables.Documents.DOCUMENTS;
+
+	/**
 	 * The table mdsearch.indexes
 	 */
 	public static final me.hubertus248.mdsearch.tables.Indexes INDEXES = me.hubertus248.mdsearch.tables.Indexes.INDEXES;

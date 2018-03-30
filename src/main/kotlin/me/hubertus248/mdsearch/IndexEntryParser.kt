@@ -9,7 +9,7 @@ import me.hubertus248.mdsearch.data.model.IndexModel
  *         Created 07.03.2018
  */
 class IndexEntryParser {
-    fun parse(indexEntry: IndexModel): Term = Term(indexEntry.term, indexEntry.id,
+    fun parse(indexEntry: IndexModel): Term = Term(indexEntry.term,
             indexEntry.data.asIterable().chunked(8).map {
                 DocumentEntry(
                         toInt(it.subList(0, 3)),

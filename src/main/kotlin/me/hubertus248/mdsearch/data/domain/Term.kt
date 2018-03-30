@@ -6,7 +6,6 @@ package me.hubertus248.mdsearch.data.domain
  */
 class Term(
         val text: String,
-        val id: Long,
         val documentEntries: List<DocumentEntry> = ArrayList(),
         var lastAccess: Long = System.currentTimeMillis()
 ) : Comparable<Term> {

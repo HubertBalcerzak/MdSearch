@@ -15,7 +15,8 @@ class IndexerController(val indexerService: IndexerService) {
     @PostMapping("/index")
     fun index(
             @RequestParam(name = "document") document: String,
-            @RequestParam(name = "documentTitle") title: String) {
-        indexerService.indexDocument(title, document)
+            @RequestParam(name = "documentTitle") title: String,
+            @RequestParam(name = "id") documentId: String) {
+        indexerService.indexDocument(documentId, title, document)
     }
 }
