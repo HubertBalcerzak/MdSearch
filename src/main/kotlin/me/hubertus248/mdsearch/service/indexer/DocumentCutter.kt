@@ -5,7 +5,7 @@ package me.hubertus248.mdsearch.service.indexer
  *         Created 25.02.2018
  */
 private val UNDERSCORED_HEADING_REGEX = "(.+)\\n[-=]+\\n".toRegex()
-private val ALPHANUMERIC_REGEX = "[^A-Za-z0-9 ]".toRegex()
+private val NON_ALPHANUMERIC_REGEX = "[^A-Za-z0-9 ]".toRegex()
 private val MULTIPLE_SPACE_REGEX = "[ ][ ]+".toRegex()
 
 class DocumentCutter {
@@ -36,7 +36,7 @@ class DocumentCutter {
 
     private fun addParagraph(text: String, weight: Int) {
         val escapedText = text
-                .replace(ALPHANUMERIC_REGEX, "")
+                .replace(NON_ALPHANUMERIC_REGEX, "")
                 .replace(MULTIPLE_SPACE_REGEX, " ")
                 .toLowerCase()
         if (escapedText.isNotBlank())

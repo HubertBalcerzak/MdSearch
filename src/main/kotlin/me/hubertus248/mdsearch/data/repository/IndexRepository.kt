@@ -2,7 +2,6 @@ package me.hubertus248.mdsearch.data.repository
 
 import me.hubertus248.mdsearch.data.model.IndexModel
 import me.hubertus248.mdsearch.tables.Indexes.INDEXES
-import me.hubertus248.mdsearch.tables.records.IndexesRecord
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 
@@ -21,9 +20,10 @@ class IndexRepository(val ctx: DSLContext) {
     }
 
     fun storeTerm(term: String, data: ByteArray) {
-        val record: IndexesRecord = ctx.newRecord(INDEXES)
-        record.term = term
-        record.indexerData = data
-        record.store()
+        ctx.insertInto(INDEXES, INDEXES.TERM, INDEXES.INDEXER_DATA)
+                .values(term, data)
+                .onDuplicateKeyUpdate()
+                .set(INDEXES.INDEXER_DATA, data)
+                .execute()
     }
 }
