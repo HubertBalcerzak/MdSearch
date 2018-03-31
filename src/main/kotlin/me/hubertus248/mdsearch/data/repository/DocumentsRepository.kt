@@ -10,16 +10,11 @@ import org.springframework.stereotype.Service
  */
 @Service
 class DocumentsRepository(val ctx: DSLContext) {
-    fun insertDocument(documentId: String): Int {
-        ctx.insertInto(DOCUMENTS, DOCUMENTS.ORIGINALID)
-                .values(documentId)
-                .returning(DOCUMENTS.ID)
-                .fetchOne()[DOCUMENTS.ID]
-//        ctx.insertInto(DOCUMENTS, DOCUMENTS.ORIGINALID)
-//                .values(documentId)
-//                .execute()
-        return 0
-    }
+    fun insertDocument(documentId: String): Int =
+            ctx.insertInto(DOCUMENTS, DOCUMENTS.ORIGINALID)
+                    .values(documentId)
+                    .returning(DOCUMENTS.ID)
+                    .fetchOne()[DOCUMENTS.ID]
 
     fun getOriginalId(id: Int): String =
             ctx.select(DOCUMENTS.ORIGINALID)

@@ -25,7 +25,7 @@ class IndexerService(
         paragraphIndexer.terms.entries.forEach { updateTerm(it.key, it.value, localDocumentId) }
     }
 
-    private fun updateTerm(termKey: String, rating: Float, localDocumentId: Int) {
+    private fun updateTerm(termKey: String, rating: Int, localDocumentId: Int) {
         val oldTerm: Term? = termBank[termKey]
         val documentEntries = ArrayList<DocumentEntry>()
         if (oldTerm != null) documentEntries.addAll(oldTerm.documentEntries)

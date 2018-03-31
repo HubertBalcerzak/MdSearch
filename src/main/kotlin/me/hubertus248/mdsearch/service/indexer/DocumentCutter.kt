@@ -34,7 +34,7 @@ class DocumentCutter {
                 .forEach { addParagraph(it.content, it.weight) }
     }
 
-    private fun addParagraph(text: String, weight: Float) {
+    private fun addParagraph(text: String, weight: Int) {
         val escapedText = text
                 .replace(ALPHANUMERIC_REGEX, "")
                 .replace(MULTIPLE_SPACE_REGEX, " ")

@@ -87,12 +87,7 @@ jooq {
 						converter = 'csmart.api.config.db.MySQLJSONJacksonJsonNodeBinding'
 					}
 				}
-//				forcedTypes {
-//					forcedType {
-//						name = 'com.fasterxml.jackson.databind.JsonNode'
-//						expression = 'public\\.users\\.address'
-//					}
-//				}
+
 			}
 			generate {
 				relations = true

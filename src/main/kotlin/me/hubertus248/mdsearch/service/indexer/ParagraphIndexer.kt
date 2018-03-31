@@ -5,9 +5,11 @@ package me.hubertus248.mdsearch.service.indexer
  *         Created 02.03.2018
  */
 class ParagraphIndexer() {
-    val terms = HashMap<String, Float>()
+    val terms = HashMap<String, Int>()
 
     fun index(paragraph: Paragraph) {
-        paragraph.content.split(" ").forEach { terms[it] = terms[it] ?: 0 + paragraph.importance }
+        paragraph.content.split(" ").forEach {
+            if (it.isNotEmpty()) terms[it] = (terms[it] ?: 0) + paragraph.importance
+        }
     }
 }

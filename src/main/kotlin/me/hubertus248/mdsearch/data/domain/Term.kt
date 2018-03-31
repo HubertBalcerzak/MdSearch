@@ -14,8 +14,8 @@ class Term(
     }
 
     fun serialize(): ByteArray {
-        val array = ByteArray(documentEntries.size * 16)
-        documentEntries.forEachIndexed { i, documentEntry -> documentEntry.writeSerialized(array, i * 2) }
+        val array = ByteArray(documentEntries.size * 8)
+        documentEntries.forEachIndexed { i, documentEntry -> documentEntry.writeSerialized(array, i * 8) }
         return array
     }
 }

@@ -12,8 +12,8 @@ class IndexEntryParser {
     fun parse(indexEntry: IndexModel): Term = Term(indexEntry.term,
             indexEntry.data.asIterable().chunked(8).map {
                 DocumentEntry(
-                        toInt(it.subList(0, 3)),
-                        Float.fromBits(toInt(it.subList(4, 7)))
+                        toInt(it.subList(0, 4)),
+                        toInt(it.subList(4, 8))
                 )
             })
 

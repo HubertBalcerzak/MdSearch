@@ -50,7 +50,7 @@ class ParagraphMerger {
 
 class UnprocessedParagraph(
         var content: String,
-        val weight: Float
+        val weight: Int
 ) {
     fun addLine(line: String) {
         content += " " + line
